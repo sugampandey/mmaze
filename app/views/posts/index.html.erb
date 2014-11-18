@@ -1,0 +1,25 @@
+<% title "Blog at Musiquemaze" %>
+
+<div class="content">
+  <div class="content-main placeholder">
+    <div id="main-col">
+      <% @posts.each do |post| %>
+        <div class="post-content">
+          <h2 class="post-titile"><%= link_to post.title, post %></h2>
+          <div class="post-body">
+            <%= post_content(post, :truncate => true, :length => 500, :omission => "... " + link_to("(continued)", post)) %>
+          </div>
+          <div class="post-date">
+            <%= post.updated_at.to_s(:blog) %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div id="side-col">
+      <%= render "posts/side_col", :limit => 20 %>
+    </div>
+    
+    <div class="clear"></div>
+  </div>
+</div>

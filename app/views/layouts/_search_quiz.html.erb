@@ -1,0 +1,15 @@
+<div id="searchContainer">
+<%= form_tag search_quizzes_path, :method => :get do %>
+  <%= text_field_tag "q", params[:q], :autocomplete => "off", :placeholder => "Search for Quizzess" -%>
+  <%= image_tag("/images/search.png", :id => "submitImgBtn", :title=>"Search", :style => "padding:0", :width => "32px", :height => "29px")  %>
+<% end %>
+</div>
+<% content_for :javascript do %>
+<script type="text/javascript">
+$(function(){
+  $("#submitImgBtn").click(function(){
+    $(this).closest("form").submit();
+  });
+});
+</script>
+<% end %>

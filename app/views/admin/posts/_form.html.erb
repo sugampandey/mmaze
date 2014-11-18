@@ -1,0 +1,66 @@
+<%= form_for [:admin, @post] do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+
+<div id="toolbar">
+  <div id="toolbar-items">
+    <ul class="commands">
+      <li data-wysihtml5-command="bold" title="Make text bold (CTRL + B)" class="command" href="javascript:;" unselectable="on"></li>
+      <li data-wysihtml5-command="italic" title="Make text italic (CTRL + I)" class="command" href="javascript:;" unselectable="on"></li>
+      <li data-wysihtml5-command="insertUnorderedList" title="Insert an unordered list" class="command" href="javascript:;" unselectable="on"></li>
+      <li data-wysihtml5-command="insertOrderedList" title="Insert an ordered list" class="command" href="javascript:;" unselectable="on"></li>
+      <li data-wysihtml5-command="createLink" title="Insert a link" class="command" href="javascript:;" unselectable="on"></li>
+      <li data-wysihtml5-command="insertImage" title="Insert an image" class="command" href="javascript:;" unselectable="on"></li>
+      <li data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1" title="Insert headline 1" class="command wysihtml5-command-active" href="javascript:;" unselectable="on"></li>
+      <li data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2" title="Insert headline 2" class="command" href="javascript:;" unselectable="on"></li>
+      <li data-wysihtml5-command-group="foreColor" class="fore-color" title="Color the selected text">
+        <ul>
+          <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="silver" href="javascript:;" unselectable="on"></li>
+          <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="gray" href="javascript:;" unselectable="on"></li>
+          <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="maroon" href="javascript:;" unselectable="on"></li>
+          <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red" href="javascript:;" unselectable="on"></li>
+          <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="purple" href="javascript:;" unselectable="on"></li>
+          <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="green" href="javascript:;" unselectable="on"></li>
+          <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="olive" href="javascript:;" unselectable="on"></li>
+          <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="navy" href="javascript:;" unselectable="on"></li>
+          <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="blue" href="javascript:;" unselectable="on"></li>
+        </ul>
+      </li>
+      <li data-wysihtml5-action="change_view" title="Show HTML" class="action" href="javascript:;" unselectable="on"></li>
+    </ul>
+  </div>
+  <div data-wysihtml5-dialog="createLink" style="display: none;">
+    <label>
+      Link:
+      <input data-wysihtml5-dialog-field="href" value="http://">
+    </label>
+    <a data-wysihtml5-dialog-action="save">OK</a>&nbsp;<a data-wysihtml5-dialog-action="cancel">Cancel</a>
+  </div>
+
+  <div data-wysihtml5-dialog="insertImage" style="display: none;">
+    <label>
+      Image:
+      <input data-wysihtml5-dialog-field="src" value="http://">
+    </label>
+    <a data-wysihtml5-dialog-action="save">OK</a>&nbsp;<a data-wysihtml5-dialog-action="cancel">Cancel</a>
+  </div>
+</div>
+
+  <p>
+    <%= f.label :body %><br />
+    <%= f.text_area :body, :style => "width:100%;" %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>
+
+<script type="text/javascript">
+$(function(){
+  editor = new wysihtml5.Editor("post_body", 
+    { toolbar: "toolbar",
+      parserRules: wysihtml5ParserRules 
+    })
+});
+</script>

@@ -1,0 +1,31 @@
+<% title "Search for Quizzes" %>
+
+<div class="content" style="min-height:300px;">
+  <div class="content-mid-split-7"></div>
+  <div id="searchResult" class="content-main placeholder" style="margin-top:0;padding-top:0;">
+    <% if @quizzes.empty? %>
+      <div id="searchResultText">Sorry no search match with criteria</div>
+    <% else %>
+        <div class="quizzes-in-category" style="margin-top:10px;">
+          <div style="min-height:250px;">
+          <div class="quizzes-category" >
+            <div class="category-header" style="width:100%;">Search founds</div>
+          </div>
+          <div class="clear"></div>
+          <div class="quizzes-container">
+            <ul class="quizzes-list" style="width:100%;">
+              <% @quizzes.each do |quiz| %>
+                <li><span><%= link_to quiz.name, quiz, :class => "quiz-link" -%></span></li>
+              <% end %>
+            </ul>
+          </div>
+          </div>
+          <div class="clear"></div>
+          <div style="margin-top:30px;"><%= will_paginate @quizzes -%></div>
+        </div>    
+        <div class="clear"></div>
+    <% end %>
+  </div>
+</div>
+
+

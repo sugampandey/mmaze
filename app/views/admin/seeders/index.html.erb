@@ -1,0 +1,15 @@
+<% title "Seeders" %>
+
+<table>
+  <tr>
+    <th>Doc File Name</th>
+    <th>Doc File Size</th>
+  </tr>
+  <% for seeder in @seeders %>
+    <tr>
+      <td><%= seeder.doc_file_name %></td>
+      <td><%= seeder.doc_file_size %></td>
+      <td><%= link_to "Destroy", [:admin, seeder], :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>

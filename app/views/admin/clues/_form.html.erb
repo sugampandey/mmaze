@@ -1,0 +1,11 @@
+<%= form_for [:admin, @question, @clue] do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :content %><br />
+    <%= f.text_field :content %>
+  </p>
+  <p>
+	<%= f.submit :class => "btn" %>
+	<%= link_to "Back to Question All", admin_question_clues_path(@clue.question), :class => "btn"  %>
+  </p>
+<% end %>

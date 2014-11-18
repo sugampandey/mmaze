@@ -1,0 +1,24 @@
+<%- if flash[:fb_page_feed] -%>
+<% content_for :javascript do %>
+<script type="text/javascript">
+$(function(){
+  setTimeout(function(){
+    FB.api('<%= APP_CONFIG[:facebook_page_id] %>?fields=access_token',function(response){ 
+      if(response.access_token){
+        publish = {
+          access_token: response.access_token, 
+          name: '<%= flash[:fb_page_feed][:name] -%>',
+          link: '<%= flash[:fb_page_feed][:link] -%>',
+          picture: '<%= flash[:fb_page_feed][:picture] -%>',
+          caption: '<%= flash[:fb_page_feed][:caption] -%>',
+          description: '<%= flash[:fb_page_feed][:description] -%>',
+          message: '<%= flash[:fb_page_feed][:message] %>'
+        };
+        FB.api('<%= APP_CONFIG[:facebook_page_id] %>/feed', 'post',  publish, function(response) {  });
+      }
+    });
+  },6000);
+});
+</script>
+<% end %>
+<%- end -%>

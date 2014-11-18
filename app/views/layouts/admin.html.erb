@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for?(:title) ? yield(:title) : "Musiquemaze" %></title>
+    <%= stylesheet_link_tag "scaffold" %>
+    <%= javascript_include_tag "scaffold" %>
+    <%= csrf_meta_tag %>
+    <%= yield(:head) %>
+  </head>
+  <body>
+    <%= render "facebook/js_init" %>
+    <%= render "facebook/js_admin_perms" %>
+    <%= render "facebook/js_feed" %>
+    <div id="container">
+      <div class="admin-header">
+        <%= render "/admin/shared/admin_menu" -%>
+        <hr/>
+      </div>
+      <% flash.collect{|k,v| k != "fb_page_feed" }.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <% end %>
+      <%= content_tag :h1, yield(:title) if show_title? %>
+      <%= yield %>
+    </div>
+    <%= yield(:javascript) %>
+  </body>
+</html>

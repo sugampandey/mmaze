@@ -1,0 +1,22 @@
+<% title "Clues for Question in Quiz: #{@question.quiz.content}" %>
+
+<table class="zebra" cellpadding="0" cellspacing="0">
+  <tr>
+    <th>Content</th>
+    <th>Column</th>
+    <th colspan="2"></th>
+  </tr>
+  <% for clue in @clues %>
+    <tr>
+      <td><%= link_to clue.content, [:admin, clue] %></td>
+      <td><%= clue.column.name if clue.column %></td>
+      <td><%= link_to "Edit", edit_admin_clue_path(clue) %></td>
+      <td><%= link_to "Destroy", [:admin, clue], :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p>
+ <%= link_to "New Clue", new_admin_question_clue_path(@question), :class => "btn"  %>
+ <%= link_to "Back to Questions", admin_quiz_questions_path(@question.quiz), :class => "btn"  %>
+</p>

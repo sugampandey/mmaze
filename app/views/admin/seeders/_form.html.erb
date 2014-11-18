@@ -1,0 +1,9 @@
+<%= form_for [:admin, @seeder], :html => { :multipart => true } do |f| %>
+  <%= f.error_messages %>
+  <%= hidden_field_tag "quiz_id", @quiz_id %>
+  <p>
+    <%= f.label :doc, "Upload File" %><br />
+    <%= f.file_field :doc %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

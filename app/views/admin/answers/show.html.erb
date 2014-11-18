@@ -1,0 +1,16 @@
+<% title "Answer" %>
+
+<p>
+  <strong>Content:</strong>
+  <%= @answer.content %>
+</p>
+<p>
+  <strong>Quiz:</strong>
+  <%= @answer.question.quiz.content if @answer.question.quiz %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_admin_answer_path(@answer) %> |
+  <%= link_to "Destroy", [:admin, @answer], :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "Question", admin_question_path(@answer.question) %>
+</p>

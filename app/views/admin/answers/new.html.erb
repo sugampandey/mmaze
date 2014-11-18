@@ -1,0 +1,5 @@
+<% title "New Answer for #{@question.quiz.content}" %>
+
+<%= form_for [:admin, @question, @answer]  do |f| %>
+  <%= render 'form', :f => f %>
+<% end %>

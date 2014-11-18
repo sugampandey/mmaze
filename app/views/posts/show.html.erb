@@ -1,0 +1,16 @@
+<% title "Musiquemaze - #{@post.title}" %>
+
+<div class="content">
+  <div class="content-main placeholder"">
+    <div id="main-col">
+      <%= render "posts/post", :post => @post %>
+    </div>
+
+    <div id="side-col">
+      <%= render "posts/side_col", :limit => 20 %>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+
+

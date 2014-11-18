@@ -1,0 +1,194 @@
+<% content_for :javascript do %>
+<script type="text/javascript">
+var corretAnswerImg = '<%= image_tag "/images/correct-answer-icon.png" -%>';
+var wrongAnswerImg = '<%= image_tag "/images/wrong-answer-icon.png" -%>';
+var totalPoints = <%= @totalPoints.to_i -%>;
+var timer;
+var totalSeconds;
+var questions = <%= @questions.to_json.html_safe -%>;
+var numberOfAnswers = <%= @quiz.answer_columns_count %>;
+var givingUp = false;
+var quizTimer = null;
+function completed(){
+  numberOfQuestion = $(".quiz-table tr.question").length;
+  correctAnswers = 0;
+  $(".quiz-table tr.question").each(function(){ correctAnswers += parseInt($(this).attr('data-correct-answers')); });
+  return correctAnswers == (numberOfQuestion * numberOfAnswers);
+}
+function summarizePoints(){
+  points = 0;
+  $(".quiz-table tr td.score").each(function(){
+    v = parseInt($(this).html());
+    points += isNaN(v) ? 0 : v;
+  });
+  $(".quiz-table tr td.score-summary").html(points + "/" + totalPoints + " points");
+  return (points + "/" + totalPoints);
+}
+function createTimer(timerID, time) {
+  timer = document.getElementById(timerID);
+  totalSeconds = time;
+  
+  updateTimer()
+  quizTimer = window.setTimeout("tickTimer()", 1000);
+  return timer;
+}
+function tickTimer() {
+  totalSeconds += 1;
+  updateTimer()
+  quizTimer = window.setTimeout("tickTimer()", 1000);
+}
+function getTimeTaken(){
+  var seconds = totalSeconds;
+  var days = Math.floor(seconds / 86400);
+  seconds -= days * 86400;
+  var hours = Math.floor(seconds / 3600);
+  seconds -= hours * (3600);
+  var minutes = Math.floor(seconds / 60);
+  seconds -= minutes * (60);
+  var timeStr = ((days > 0) ? days + " days " : "") + leadingZero(hours) + " hours " + leadingZero(minutes) + " minutes " + leadingZero(seconds) + " seconds";
+  return timeStr;
+}
+function updateTimer() {
+  timer.innerHTML = totalSeconds;
+  var seconds = totalSeconds;
+  var days = Math.floor(seconds / 86400);
+  seconds -= days * 86400;
+  var hours = Math.floor(seconds / 3600);
+  seconds -= hours * (3600);
+  var minutes = Math.floor(seconds / 60);
+  seconds -= minutes * (60);
+  var timeStr = ((days > 0) ? days + " days " : "") + leadingZero(hours) + ":" + leadingZero(minutes) + ":" + leadingZero(seconds);
+  timer.innerHTML = timeStr;
+}
+function leadingZero(val) {
+  return (val < 10) ? "0" + val : + val;
+}
+function checkAnswer(columnId, ans){
+  $(questions).each(function(j, question){
+    $(question.answers).each(function(i, answer){
+      if((columnId == answer.column_id) && ($.trim(ans).toLowerCase() == answer.content.toLowerCase())){
+        if(!answer.correct){
+          answer.correct = true;
+          primaryAnswer = findPrimaryAnswer(question.question_id, answer.column_id);
+          showCorrectAnswer(question.question_id, answer.column_id, primaryAnswer, answer.points);
+        }
+      }
+    });
+  });
+}
+function findPrimaryAnswer(questionId, columnId){
+  primaryAnswer = "";
+  $(questions).each(function(j, question){
+    if(question.question_id == questionId){
+      $(question.answers).each(function(i, answer){
+        if((columnId == answer.column_id) && (answer.primary)){
+          primaryAnswer = answer.content;
+        }
+      });
+    }
+  });
+  return primaryAnswer;
+}
+function showCorrectAnswer(questionId, columnId, answer, points){
+  questionEl = $(".quiz-table tr[data-question-id="+ questionId +"]");
+
+  answerEl = $(questionEl).find(".answer-text[data-answer-column-id="+ columnId +"]");
+  if(!$(answerEl).hasClass('correct-answer')){
+    $(answerEl).val(answer);
+    $(answerEl).attr('readonly', 'readonly');
+    $(answerEl).addClass('correct-answer');
+
+    numberOfCorrectAnswers = parseInt($(questionEl).attr('data-correct-answers')) + 1;
+    $(questionEl).attr('data-correct-answers', numberOfCorrectAnswers);
+    currentPoints = parseInt($(questionEl).find('.score').html().replace('points',''));
+    currentPoints = isNaN(currentPoints) ? 0 : currentPoints;
+    $(questionEl).find('.score').removeClass('correct-answer').addClass('correct-answer');
+    $(questionEl).find('.score').html((currentPoints + points) + " points");
+
+    if(numberOfCorrectAnswers == numberOfAnswers){
+      $(".global-answer").val(""); $(".global-answer:first").focus();
+      $(questionEl).find('.score-icon').html(corretAnswerImg);
+    }
+    else {
+      $(".global-answer:last").focus();
+    }
+    $.scrollTo($(questionEl).offset().top, $(questionEl).offset().left, { durations: 500 });
+    summarizePoints();
+  }
+  if(completed()){
+    $("#summary-title").html("Congratulations!");
+    $("#summary-title").css({color: "#50A65A"});
+    $("#summary-subtitle").html("you have completed the quiz");
+    $("#final-score").html("Score: " + summarizePoints());
+    $("#time-taken").html("Time taken: " + getTimeTaken());
+    $("#summary").modal();
+  }
+}
+function giveUp(){
+  givingUp = true;
+  clearTimeout(quizTimer);
+  $(questions).each(function(i, question){
+    questionEl = $(".quiz-table tr[data-question-id="+ question.question_id +"]");
+    if(!$(questionEl).hasClass('correct-answer')) {
+      $(question.answers).each(function(j, answer){
+        answerEl = $(questionEl).find(".answer-text[data-answer-column-id="+ answer.column_id +"]")
+        if(!$(answerEl).hasClass('correct-answer') && !$(answerEl).hasClass('wrong-answer')){
+          $(answerEl).val(answer.content);
+          $(answerEl).attr('readonly','readonly');
+          $(answerEl).removeClass('wrong-answer').addClass('wrong-answer');
+        }
+        scoreEl = $(questionEl).find('.score')
+        if(!$(scoreEl).hasClass('correct-answer')){
+          $(scoreEl).html("0 points").addClass('wrong-answer');
+          $(questionEl).find('.score-icon').html(wrongAnswerImg);
+        }
+       
+      });
+    }
+  });
+  $("#final-score").html("Score: " + summarizePoints());
+  $("#time-taken").html("Time taken: " + getTimeTaken());
+  
+}
+
+$(function(){
+  $("#simplemodal-container a.modalCloseImg").live('click',function(){
+    document.location.href = "<%= root_url -%>";
+  });
+  $("#check-other-quizess").click(function(){
+    $("#summary").modal();
+  });
+  $("#score-form").submit(function(){
+    testiName = $("#score-form #testi-name").val();
+    testiContent = $("#score-form #testi-content").val();
+    if(($.trim(testiName) != "") && ($.trim(testiContent) != "")){
+      $.post("<%= testimonial_url -%>", {content: testiContent, name: testiName}, function(){
+        document.location.href = "<%= root_url -%>";
+      }, 'json');
+    }
+    else {
+      document.location.href = "<%= root_url -%>";
+    }
+    return false;
+  });
+  $(".global-answer:eq(0)").focus();
+  createTimer("quiz-timer",0);
+  $(".give-up-button").click(function(){
+    giveUp();
+    $("#check-other-quizess").show();
+    $("#give-up").hide();
+  });
+  $(".answer-text").keydown(function(event){
+    event.preventDefault();
+    if($(this).attr('readonly') != 'readonly') $(this).val("");
+    $(".global-answer:first").focus();
+    $(".quiz-instructions-c").css({border:'2px solid red'});
+  });
+  $(".global-answer").keyup(function(event) {
+    if((!givingUp) && ($.trim($(this).val()).length > 0)){
+      checkAnswer(parseInt($(this).attr('data-answer-column-id')),$(this).val());
+    }
+  });
+});
+</script>
+<% end %>

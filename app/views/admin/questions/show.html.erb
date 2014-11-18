@@ -1,0 +1,7 @@
+<% title "Question" %>
+
+<p>
+  <%= link_to "Edit", edit_admin_question_path(@question) %> |
+  <%= link_to "Destroy", [:admin, @question], :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", admin_quiz_questions_path(@question.quiz) %>
+</p>

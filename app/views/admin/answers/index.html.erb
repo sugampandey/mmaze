@@ -1,0 +1,26 @@
+<% title "Answers" %>
+
+<table class="zebra" cellpadding="0" cellspacing="0">
+  <tr>
+    <th>Content</th>
+    <th>Column</th>
+    <th>Primary</th>
+    <th colspan="2"></th>
+  </tr>
+  <% for answer in @answers %>
+    <tr>
+      <td><%= link_to answer.content, [:admin, answer] %></td>
+      <td><%= answer.column.name if answer.column %></td>
+      <td><%= answer.primary ? "yes" : "" %></td>
+      <td><%= link_to "Edit", edit_admin_answer_path(answer) %></td>
+      <td><%= link_to "Destroy", [:admin, answer], :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= will_paginate @answers %>
+
+<p>
+  <%= link_to "New Answer", new_admin_question_answer_path(@question), :class => "btn" %> 
+  <%= link_to "Back to Quizzes", admin_quiz_questions_path(@question.quiz), :class => "btn" %>
+</p>

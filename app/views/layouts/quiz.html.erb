@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for?(:title) ? yield(:title) : "Musiquemaze" %></title>
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_include_tag "application" %>
+    <%= seo_meta_tag -%>
+    <%= csrf_meta_tag %>
+    <%= yield(:head) %>
+  </head>
+  <body>
+    <%= render "facebook/js_init" %>
+    <%= render "facebook/js_feed" %>
+    <div id="container">
+      <div class="main">
+        <%= render "layouts/header_quiz" %>
+        <%= yield %>
+        <%= render "layouts/footer_testimonials" %>
+      </div>
+    </div>
+    <%= render "layouts/js_google_analytics" -%>
+    <%= yield(:javascript) %>
+  </body>
+</html>

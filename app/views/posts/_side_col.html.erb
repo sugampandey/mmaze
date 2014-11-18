@@ -1,0 +1,5 @@
+<ul>
+  <% Post.published.limit(limit).select("id, title, slug").order("created_at DESC").each do |post| %>
+    <li><%= link_to post.title, post %></li>
+  <% end %>
+</ul>

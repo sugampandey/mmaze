@@ -1,0 +1,17 @@
+<%= f.error_messages %>
+<p>
+  <%= f.label :content %><br />
+  <%= f.text_field :content %>
+</p>
+<p>
+  <%= f.label :points %><br />
+  <%= f.text_field :points %>
+</p>
+<p>
+  <%= f.label :primary, "Primary Answer?" %><br />
+  <%= check_box("answer", "primary")%>
+</p>
+<p>
+  <%= f.submit :class => "btn" %>
+  <%= link_to "Back to Question", admin_question_path(@question), :class => "btn" %>
+</p>

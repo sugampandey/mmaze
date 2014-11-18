@@ -1,0 +1,8 @@
+<% title "Edit Question" %>
+
+<%= render 'form' %>
+
+<p>
+  <%= link_to "Show", [:admin, @question] %> |
+  <%= link_to "View All", admin_quiz_questions_path(@question.quiz) %>
+</p>

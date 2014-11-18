@@ -1,0 +1,39 @@
+<%- content_for :javascript do -%>
+<script type="text/javascript">
+var selectedCategory = null;
+$(function(){
+  $(".yell-box-content").click(function(){
+    $('.yell-box-left').removeClass("yell-box-left-selected");
+    $('.yell-box-center').removeClass("yell-box-center-selected");
+    $('.yell-box-right').removeClass("yell-box-right-selected");
+    thisParent = $(this).parents(".yell-box");
+    thisParent.find('.yell-box-left').addClass("yell-box-left-selected");
+    thisParent.find('.yell-box-center').addClass("yell-box-center-selected");
+    thisParent.find('.yell-box-right').addClass("yell-box-right-selected");
+    selectedCategory = $(this).attr('data-category-id');
+    $(".quizzes-dropdown").html("");
+    $(this).parents(".yell-box").nextAll(".quizzes-dropdown:first").html($("#category-" + selectedCategory).html());
+    $(this).parents(".yell-box").nextAll(".quizzes-dropdown:first").slideDown('slow');
+    return false;
+  });
+  $(".yell-box").hover(function(){
+    $('.yell-box-left').removeClass("yell-box-left-selected");
+    $('.yell-box-center').removeClass("yell-box-center-selected");
+    $('.yell-box-right').removeClass("yell-box-right-selected");
+    $(this).find('.yell-box-left').addClass("yell-green-box-left");
+    $(this).find('.yell-box-center').addClass("yell-green-box-center");
+    $(this).find('.yell-box-right').addClass("yell-green-box-right");
+    selectedCategory = null;
+    categoryId = $(this).attr('data-category-id');
+    $(".quizzes-dropdown").html("");
+    $(this).nextAll(".quizzes-dropdown:first").html($("#category-" + categoryId).html());
+    $(this).nextAll(".quizzes-dropdown:first").slideDown('slow');
+  },function() {
+    $(this).find('.yell-box-left').removeClass("yell-green-box-left");
+    $(this).find('.yell-box-center').removeClass("yell-green-box-center");
+    $(this).find('.yell-box-right').removeClass("yell-green-box-right");
+    if(selectedCategory == null) { $(".quizzes-dropdown").html(""); $(".quizzes-dropdown").hide() }
+  });
+});
+</script>
+<%- end -%>
