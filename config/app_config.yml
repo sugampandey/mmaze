@@ -2,14 +2,14 @@ development:
   host: omicron.local
   admin_mail: editor@musiquemaze.com
   default_mail: editor@musiquemaze.com
-  cloudfiles_api: 015a9bb650be07f24472b86655cd2f78
-  cloudfiles_user: eddieyan
-  facebook_app_id: '446164918758779'
-  facebook_app_secret: 'e5cdd0130d1f6fccbbcfbbc7e916d49a'
+  cloudfiles_api: ENV['CLOUDFILES_API']
+  cloudfiles_user: ENV['CLOUDFILES_USER']
+  facebook_app_id: ENV['FACEBOOK_APP_ID']
+  facebook_app_secret: ENV['FACEBOOK_APP_SECRET']
   facebook_scope: 'publish_stream, email'
   facebook_page_id: '431086373610100'
   facebook_page_url: https://www.facebook.com/pages/MusiqueMaze-LLC/431086373610100
-  
+
 test:
   host: omicron.local
   admin_mail: editor@musiquemaze.com
@@ -20,10 +20,10 @@ production:
   host: musiquemaze.com
   admin_mail: editor@musiquemaze.com
   default_mail: editor@musiquemaze.com
-  cloudfiles_api: 015a9bb650be07f24472b86655cd2f78
-  cloudfiles_user: eddieyan
-  facebook_app_id: '446164918758779'
-  facebook_app_secret: 'e5cdd0130d1f6fccbbcfbbc7e916d49a'
+  cloudfiles_api: ENV['CLOUDFILES_API']
+  cloudfiles_user: ENV['CLOUDFILES_USER']
+  facebook_app_id: ENV['FACEBOOK_APP_ID']
+  facebook_app_secret: ENV['FACEBOOK_APP_SECRET']
   facebook_scope: 'publish_stream, email'
   facebook_page_id: '431086373610100'
   facebook_page_url: https://www.facebook.com/pages/MusiqueMaze-LLC/431086373610100
