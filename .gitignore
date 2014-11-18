@@ -18,5 +18,5 @@
 /public/assets/*
 
 /.rvmrc
-/config/database.yml
-/config/environment.rb
+# /config/database.yml
+# /config/environment.rb
