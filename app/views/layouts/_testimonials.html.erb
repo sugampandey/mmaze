@@ -1,0 +1,28 @@
+<div class="footer-content-right">  
+  <div class="testimonials">
+    <div class="testimonials-tilde"></div>
+    <div class="testimonials-heading">Testimonials</div>
+  </div>
+  <div class="clear"></div>
+  <div class="testi-container">
+    <% Testimonial.limit(4).order("created_at DESC").each do |testi| %>
+    <div class="testi-pic">
+      <img src="/images/human-icon.png" />
+    </div>
+    <div class="testi-text-container">
+      <div class="testi-top"></div>
+      <div class="testi-center">
+        <div class="testi-content">
+          <%= clean_html testi.content %>
+        </div>
+      </div>
+      <div class="testi-bottom"></div>
+      <div class="testi-detail">
+        <div class="testi-user"><%= clean_html testi.name -%></div>
+        <div class="testi-time"><%= testi.created_at.to_s(:testimonial) -%></div>
+      </div>
+    </div>
+    <% end %>
+  </div>         
+  <div class="clear"></div>
+</div>

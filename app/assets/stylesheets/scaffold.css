@@ -1,0 +1,208 @@
+/*
+ *= require_self
+ *= require wysihtml5/style.css
+*/
+
+body {
+  background-color: #899040;
+  font-family: Tahoma, sans-serif;
+  /*font-family: Verdana, Helvetica, Arial; */
+  font-size: 0.8em;
+}
+
+a img {
+  border: none;
+}
+
+a {
+  color: #D46F00;
+  text-decoration: none;
+}
+
+.clear {
+  clear: both;
+  height: 0;
+  overflow: hidden;
+}
+
+#container {
+  width: 75%;
+  margin: 0 auto;
+  background-color: #FFF;
+  padding: 20px 40px;
+  border: solid 1px black;
+  margin-top: 20px;
+}
+
+#flash_notice, #flash_error, #flash_alert {
+  padding: 5px 8px;
+  margin: 10px 0;
+}
+
+#flash_notice {
+  background-color: #CFC;
+  border: solid 1px #6C6;
+}
+
+#flash_error, #flash_alert {
+  background-color: #FCC;
+  border: solid 1px #C66;
+}
+
+.fieldWithErrors {
+  display: inline;
+}
+
+.error_messages {
+  width: 400px;
+  border: 2px solid #CF0000;
+  padding: 0px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+  font-size: 12px;
+}
+
+.error_messages h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 10px;
+  font-size: 12px;
+  margin: 0;
+  background-color: #c00;
+  color: #fff;
+}
+
+.error_messages p {
+  margin: 8px 10px;
+}
+
+.error_messages ul {
+  margin: 0;
+}
+
+.admin-menu {
+  background-color: #FFF;
+  border: solid 1px #000;
+  padding: 5px 8px;
+}
+.admin-menu ul {
+  list-style-type: none;
+  margin: auto;
+}
+
+.admin-menu li { float: left; }
+
+.admin-menu ul a { 
+  padding-right: 5px;
+  padding-left: 5px;
+  display: block;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  color: #000;
+}
+
+/*----------------------*/
+
+.zebra td, .zebra th {
+    padding: 5px;
+    border-bottom: 1px solid #f2f2f2;    
+}
+
+.zebra tbody tr:nth-child(even) {
+    background: #f5f5f5;
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset; 
+    -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;  
+    box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;        
+}
+
+.zebra th {
+    text-align: left;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5); 
+    border-bottom: 1px solid #ccc;
+    background-color: #eee;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#eee));
+    background-image: -webkit-linear-gradient(top, #f5f5f5, #eee);
+    background-image:    -moz-linear-gradient(top, #f5f5f5, #eee);
+    background-image:     -ms-linear-gradient(top, #f5f5f5, #eee);
+    background-image:      -o-linear-gradient(top, #f5f5f5, #eee); 
+    background-image:         linear-gradient(top, #f5f5f5, #eee);
+}
+
+.zebra th:first-child {
+    -moz-border-radius: 6px 0 0 0;
+    -webkit-border-radius: 6px 0 0 0;
+    border-radius: 6px 0 0 0;  
+}
+
+.zebra th:last-child {
+    -moz-border-radius: 0 6px 0 0;
+    -webkit-border-radius: 0 6px 0 0;
+    border-radius: 0 6px 0 0;
+}
+
+.zebra th:only-child{
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+}
+
+.zebra tfoot td {
+    border-bottom: 0;
+    border-top: 1px solid #fff;
+    background-color: #f1f1f1;  
+}
+
+.zebra tfoot td:first-child {
+    -moz-border-radius: 0 0 0 6px;
+    -webkit-border-radius: 0 0 0 6px;
+    border-radius: 0 0 0 6px;
+}
+
+.zebra tfoot td:last-child {
+    -moz-border-radius: 0 0 6px 0;
+    -webkit-border-radius: 0 0 6px 0;
+    border-radius: 0 0 6px 0;
+}
+
+.zebra tfoot td:only-child{
+    -moz-border-radius: 0 0 6px 6px;
+    -webkit-border-radius: 0 0 6px 6px;
+    border-radius: 0 0 6px 6px;
+}
+
+.btn{
+    color: #7C76B3;
+    border-color: #EEE;
+    background: #EEE; /* Old browsers */
+    background: -moz-linear-gradient(top, #EEE 0%, #EEE 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#EEE), color-stop(100%,#cecece)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #EEE 0%,#EEE 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #EEE 0%,#EEE 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #EEE 0%,#EEE 100%); /* IE10+ */
+    background: linear-gradient(top, #EEE 0%,#EEE 100%); /* W3C */
+    border: 1px solid;
+    padding: 0px 5px;
+    min-width: 50px;
+    height: 22px;
+    line-height: 22px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    -moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    border-radius: 3px 3px 3px 3px;
+}
+
+input.btn { height: 24px;}
+
+a.logout-link {
+  padding-right: 5px;
+  padding-left: 5px;
+  display: block;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
+}

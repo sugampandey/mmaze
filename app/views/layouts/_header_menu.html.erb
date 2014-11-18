@@ -1,0 +1,35 @@
+<div class="navi-container">
+  <div class="nav-left"></div>
+  <div class="nav-center">
+    <ul class="dropdown dropdown-horizontal">
+      <li class="nav-split"></li>
+      <li>
+        <div>
+          <%= render "layouts/search_quiz" -%>
+        </div>
+      </li>
+      <li class="nav-split"></li>
+      <li><%= link_to "Home", root_url %></li>
+      <li class="nav-split"></li>
+      <li class="dropdown-vertical-rtl">
+        <a href="#" class="dir">Quizzes</a>
+        <ul>
+          <% @categories.each do |category| %>
+          <li>
+            <a href="#" class="dir"><%= category.name -%></a>   
+            <ul>
+              <% category.quizzes.limit(5).each do |quiz| %>
+              <li><%= link_to quiz.name, quiz_url(quiz) %></li>
+              <% end %>
+            </ul>
+          </li>
+          <% end %>
+        </ul>
+      </li>
+      <li class="nav-split"></li>
+      <li><%= link_to "Feedback", contactus_url %></li>
+      <li class="nav-split"></li>
+    </ul>
+  </div>
+  <div class="nav-right"></div>
+</div>

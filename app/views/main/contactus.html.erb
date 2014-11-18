@@ -1,0 +1,44 @@
+<% title "Contact Us" %>
+
+<div class="content">
+  <div class="content-mid-split">
+    <div class="content-header-container">
+      <div class="content-header-left"></div>
+      <div class="content-header-center">
+        <div class="header-text">
+          <a class="yellow-button" href="#" rel="nofollow">Contact Us</a>
+        </div>
+      </div>
+      <div class="content-header-right"></div>
+    </div>
+  </div>
+  <div class="content-main placeholder">
+  <% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, :id => "flash_#{name}" %>
+  <% end %>
+
+<div id="contact" style="display:block;width: 450px; margin:0 auto;">
+  <div id="contact-ct">
+    <%= form_for @contact do |f| %>
+      <%= f.error_messages %>
+      <div class="txt-fld">
+        <%= f.label :name  -%>
+        <%= f.text_field :name %>
+      </div>
+      <div class="txt-fld">
+        <%= f.label :email  -%>
+        <%= f.text_field :email %>
+      </div>
+      <div class="txt-fld">
+        <%= f.label :content, "Your Question"  -%>
+        <%= f.text_area :content, :cols => "30", :rows => "5" %>
+      </div>
+      <div class="btn-fld">
+        <button type="submit">Submit</button>
+      </div>
+     <% end %>
+  </div>
+</div>
+
+  </div>
+</div>

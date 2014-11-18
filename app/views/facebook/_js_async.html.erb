@@ -1,0 +1,14 @@
+FB.getLoginStatus(function(response) {
+  if (response.status === 'connected') {
+    <% unless facebook_logged_in? %>
+      window.document.location = '<%= user_omniauth_authorize_path(:facebook) -%>';
+    <% end %>  
+  }
+}); 
+FB.Event.subscribe('auth.login', function(response) {
+  if (response.status === 'connected') {
+    <% unless facebook_logged_in? %>
+      window.document.location = '<%= user_omniauth_authorize_path(:facebook) -%>';
+    <% end %>  
+  }
+});

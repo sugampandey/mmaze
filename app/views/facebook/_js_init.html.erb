@@ -1,0 +1,19 @@
+<div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : "<%= APP_CONFIG[:facebook_app_id] -%>",
+      status     : true,
+      cookie     : true,
+      xfbml      : true 
+    });
+    <%- render "facebook/js_async" -%>
+  };
+  (function(d){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document));
+</script>

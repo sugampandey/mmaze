@@ -1,0 +1,109 @@
+<%= form_for [:admin, @seeder], :html => { :multipart => true } do |f| %>
+<fieldset style="width:47%;float:left;min-height:200px;">
+  <legend>Upload Seed Document to Fill The Quiz</legend>
+  <%= hidden_field_tag "quiz_id", @quiz.id unless @quiz.new_record? %>
+  <%= f.error_messages %>
+  <p>
+    <%= @seeder.doc.path if @seeder.doc -%> <br/>
+    <%= f.file_field :doc %>
+  </p>
+  <p><%= f.submit %></p>
+</fieldset>
+<% end %>
+
+<%= form_for [:admin, @quiz] do |f| %>
+<fieldset style="width:47%;float:left;min-height:200px;">
+  <legend>Quiz Basic Info</legend>  
+  <%= hidden_field_tag "seeder_id", @seeder.id if @seeder %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name, :style => "width:99%;" %>
+  </p>
+  <p>
+    <%= f.label :content %><br />
+    <%= f.text_field :content, :style => "width:99%;" %>
+  </p>
+  <p>
+    <%= f.label :category_id %><br />
+    <%= f.collection_select :category_id, Category.all, :id, :name, options ={:prompt => "Select Category"} %>
+  </p>
+</fieldset>
+<fieldset id="quiz-columns" style="width:47%;float:left;min-height:200px;">
+  <legend>Quiz Columns</legend>
+  <table border="0" style="width:100%;">
+    <thead>
+      <tr>
+        <td class="name">Columns</td>
+      </tr>
+    </thead>
+    <tbody id="columns">
+      <%= f.fields_for :columns do |builder| %>
+        <%= render "column_fields", :f => builder %>
+      <% end %>
+    </tbody>
+  </table>
+  <p><%= link_to_add_fields "Add more column", f, :columns %></p>
+</fieldset>
+<fieldset style="width:47%;float:left;min-height:200px;">
+  <legend>Quiz Instructions</legend>     
+  <table border="0" style="width:100%;">
+    <thead>
+      <tr>
+        <td class="name">Instructions</td>
+      </tr>
+    </thead>
+    <tbody id="instructions">
+      <%= f.fields_for :instructions do |builder| %>
+        <%= render "instruction_fields", :f => builder %>
+      <% end %>
+    </tbody>
+  </table>
+  <p><%= link_to_add_fields "Add more instruction", f, :instructions %></p>
+</fieldset>
+<div class="clear"></div>
+<div style="margin-top:10px;">
+<%= f.error_messages %>
+</div>
+<div class="clear"></div>
+<p style="margin-top:10px;"><%= f.submit :class => "btn"  %> <%= link_to "Back to List", admin_quizzes_path, :class => "btn" %></p>
+
+<div class="clear"></div>
+<% unless @questions.nil? %>
+<div>
+  <p style="text-align:center;font-weight:bold;">Parsed Questions</p>
+  <table id="questions-table" class="zebra" cellpadding="0" cellspacing="0">
+    <thead>
+      <tr>
+        <th valign="top"></th>
+        <% @quiz.columns.each do |column| %>
+        <th valign="top" style="text-align:center;"><%= column.name -%></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @questions.each_with_index do |columns, j| %>
+      <tr>
+        <td valign="top"><%= link_to "(x)", "#", :title => "Remove Question", :class => "remove-quiz" -%></td>
+        <% @quiz.columns.each_with_index do |column, idx| %>
+          <td valign="top">
+            <% columns.select { |k,v| k[:column] == column.name; }.each_with_index do |c, i| %>
+              <div class="column-fields">  
+                <div style="float:none;">
+                  <%= text_field_tag "questions[#{j}][#{idx}][#{i}][content]", c[:content], :style => "float:left;" -%> <%= link_to "(x)", "#", :title => "Remove Answer", :class => column.is_answer ? "remove-answer" : "remove-answer hide-this", :style => "float:left;"  -%>
+                </div>
+              </div>
+            <% end %>
+            <%= link_to_add_answer("add more answer", j, idx, { :class => column.is_answer ? "add-answer" : "add-answer hide-this", :style => "float:none;" }) %>
+          </td>
+        <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<p style="margin-top:10px;"><%= f.submit :class => "btn"  %> <%= link_to "Back to List", admin_quizzes_path, :class => "btn" %></p>
+<% end %>
+
+<% end %>
+<div class="clear"></div>
+<style>.hide-this {display: none;} </style>

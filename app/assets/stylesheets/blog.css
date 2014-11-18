@@ -1,0 +1,42 @@
+#main-col {
+  width: 78%;
+  float: left;
+}
+
+#side-col {
+  width: 20%;
+  float: right;
+}
+
+.post-content {
+  font-family: Cambria;
+  font-weight: normal;
+  font-size: 1.2em;
+  text-transform: normal;
+  letter-spacing: normal;
+  line-height: 150%;
+  text-align:justify;
+  text-justify:inter-word;
+}
+
+.post-content h2 {
+  font-weight: bold;
+  font-size: 1.4em;
+  padding: 5px;
+  text-align: center;
+}
+
+.post-content h2 a, #side-col a {
+  color: #000;
+}
+
+.post-date {
+  font-weight: bold;
+  font-size: 0.7em;
+}
+
+#side-col ul li {
+  display: block;
+  padding: 3px;
+  font-size: 1.2em;
+}

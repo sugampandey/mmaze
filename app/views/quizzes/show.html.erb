@@ -1,0 +1,105 @@
+<%- title "Quiz #{@quiz.name}" -%>
+<%- javascript "jquery_simple_modal" -%>
+<%- javascript "jquery_scroll_to" -%>
+<div class="content">
+  <div class="content-mid-split-7"></div>
+  <div class="content-main placeholder" style="margin-top:0;padding-top:0;">
+    <div style="text-align:center;width:100%;">
+      <div class="quiz-instructions">
+        <div class="quiz-instructions-c">
+          <ul>
+            <% @quiz.instructions.each do |instruction| %>
+              <li class="quiz-instruction"><%= instruction.content -%></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+      <div class="quiz-answers">
+        <%- @quiz.columns.select(:id).where("is_answer = 1").each do |column| -%>
+          <%= text_field_tag nil, "", :class => "global-answer", :size => "#{@max_content_length}", :autocomplete => "off", "data-answer-column-id" => column.id -%>&nbsp;
+        <%- end -%>
+      </div>
+    </div>
+    <div class="quiz-container" style="">
+      <div class="quiz-container-center">
+        <table class="quiz-table" style="margin: 0 auto;">
+          <thead>
+            <tr class="table-header">
+              <th class="qt-head-tl"></th>
+              <%- @quiz.columns.select("name, is_answer").order("is_answer ASC").each do |column| -%>
+                <th class="qt-head-c"><%= column.name -%></th>
+              <%- end -%>
+              <th class="qt-head-c">TIME</th>
+              <th id="quiz-timer" class="qt-head-c"></th>
+              <th class="qt-head-tr"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <%- @quiz.questions.select("id").each do |question| -%>
+              <tr class="question <%= cycle('odd','even') %>" data-question-id="<%= question.id -%>" data-correct-answers="0">
+                <td class="qt-row-l"></td>
+                <%- question.clues.each do |clue| -%>
+                  <td class="qt-row-c clue-column"><%= clue.content -%></td>
+                <%- end -%>
+                <%- question.answers.select("distinct column_id").each do |answer| -%>
+                  <td class="answer-column"><%= text_field_tag nil, "", :class => "answer-text", "data-answer-column-id" => answer.column_id, :autocomplete => "off", :size => "#{@max_content_length}"-%></td>
+                <%- end -%>
+                <td class="score-icon"></td>
+                <td class="score"></td>
+                <td class="qt-row-r"></td>
+              </tr>
+            <%- end -%>
+          </tbody>
+          <tfoot>
+            <tr class="summary">
+              <td class="qt-row-l"></td>
+              <td class="score-summary-title" colspan="<%= @quiz.clue_columns_count + @quiz.answer_columns_count %>">Score :</td>
+              <td class="score-summary" colspan="2">0/<%= @totalPoints.to_i -%> points</td>
+              <td class="qt-row-r"></td>
+            </tr>
+            <tr>
+              <td class="qt-foot-l"></td>
+              <td class="qt-foot-c score-summary-title" colspan="<%= @quiz.clue_columns_count + @quiz.answer_columns_count + 2 %>"></td>
+              <td class="qt-foot-r"></td>
+            </tr>
+          </tfoot>
+        </table>
+
+      </div>
+    </div>
+    <div class="give-up-container">
+      <button id="give-up" class="give-up-button">Give Up</button>
+      <button id="check-other-quizess" style="display:none;">Check out other Quizzes &raquo;</button>
+    </div>
+    <div class="clear"></div>
+  <!-- place content here -->
+  </div>
+</div>
+<div style='display:none'>
+  <img src='/images/x.png' alt='' />
+</div>
+<div id="summary">
+  <div id="summary-ct">
+    <div id="summary-header">
+      <h2 id="summary-title">Quiz Summary</h2>
+      <span id="summary-subtitle"></span>
+      <p id="final-score"></p>
+      <p id="time-taken"></p>
+    </div>
+    <form id="score-form" action="">
+      <div class="txt-fld">
+        <label for="">Testimonial (Optional)</label>
+        <%= text_area_tag "content", "", :id => "testi-content" %>
+      </div>
+      <div class="txt-fld">
+        <label for="name">Name</label>
+        <input id="testi-name" name="name" type="text" />
+      </div>
+      <div class="btn-fld">
+        <button type="submit">Check out other Quizzes &raquo;</button>
+      </div>
+     </form>
+  </div>
+</div>
+
+<%= render "quizzes/js_quiz" %>

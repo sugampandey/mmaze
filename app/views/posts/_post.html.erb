@@ -1,0 +1,10 @@
+<div class="post-content">
+  <h2 class="post-titile"><%= link_to post.title, post %></h2>
+  <div class="post-body">
+    <%= post_content post %>
+  </div>
+  <div class="post-date">
+    <%= post.updated_at %>
+  </div>
+  <div class="fb-comments" data-href="<%= post_url(post) -%>" data-num-posts="2" data-width="700"></div>
+</div>

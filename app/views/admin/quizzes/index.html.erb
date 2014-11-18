@@ -1,0 +1,24 @@
+<% title "Quizzes" %>
+
+<table class="zebra" cellpadding="0" cellspacing="0">
+  <tr>
+    <th>Name</th>
+    <th>Category</th>
+    <th>Columns</th>
+    <th colspan="3"></th>
+  </tr>
+  <% for quiz in @quizzes %>
+    <tr>
+      <td><%= link_to quiz.name, [:admin, quiz]  %></td>
+      <td><%= quiz.category.name if quiz.category %></td>
+      <td><%= quiz.columns.collect(&:name).join(", ") if quiz.columns %></td>
+      <td><%= link_to "Questions", admin_quiz_questions_path(quiz) %></td>
+      <td><%= link_to "Edit", edit_admin_quiz_path(quiz) %></td>
+      <td><%= link_to "Destroy", [:admin, quiz], :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= will_paginate @quizzes %>
+
+<p><%= link_to "New Quiz", new_admin_quiz_path, :class => "btn" %></p>

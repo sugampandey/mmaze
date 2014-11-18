@@ -1,0 +1,16 @@
+<% title "Seeder" %>
+
+<p>
+  <strong>Doc File Name:</strong>
+  <%= @seeder.doc_file_name %>
+</p>
+<p>
+  <strong>Doc File Size:</strong>
+  <%= @seeder.doc_file_size %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_admin_seeder_path(@seeder) %> |
+  <%= link_to "Destroy", [:admin, @seeder], :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", admin_seeders_path %>
+</p>

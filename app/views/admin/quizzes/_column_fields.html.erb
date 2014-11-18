@@ -1,0 +1,5 @@
+<tr class="fields">
+  <td style="width:65%;"><%= f.text_field :name, :style => "width:100%;", :class => "column-name" %></td>
+  <td><%= f.radio_button 'is_answer', false, :class => "is-answer-radio" %> Clue <%= f.radio_button 'is_answer', true, :class => "is-answer-radio" %> Answer</td>
+  <td><%= link_to "(x)", "#", :class => "removeField" %></td>
+</tr>

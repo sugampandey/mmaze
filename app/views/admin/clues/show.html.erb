@@ -1,0 +1,16 @@
+<% title "Clue" %>
+
+<p>
+  <strong>Content:</strong>
+  <%= @clue.content %>
+</p>
+<p>
+  <strong>Quiz:</strong>
+  <%= @clue.question.quiz.content if @clue.question %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_admin_clue_path(@clue) %> |
+  <%= link_to "Destroy", [:admin, @clue], :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", admin_question_clues_path(@clue.question) %>
+</p>

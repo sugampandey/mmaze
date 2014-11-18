@@ -1,0 +1,84 @@
+<% title "Musique Maze" %>
+<div class="content">
+  <div class="content-mid-split">
+    <div class="content-header-container">
+      <div class="content-header-left"></div>
+      <div class="content-header-center">
+        <div class="header-text">
+          <a class="yellow-button" href="#" rel="nofollow">MUSIC QUIZZES</a>
+        </div>
+      </div>
+      <div class="content-header-right"></div>
+    </div>
+  </div>
+  <div class="content-main placeholder">
+    <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <% end %>
+    <div class="buttons-place">
+      <%- @categories.each_with_index do |category, i| %>
+        <div class="yell-box" data-category-id="<%= category.id -%>">
+          <div class="yell-box-left"></div>
+          <div class="yell-box-center">
+            <div class="yell-box-content" data-category-id="<%= category.id -%>" >
+              <%= link_to category.name, "#quizzes", :rel => "nofollow", :class => "yellow-button" -%>
+            </div>
+          </div>
+          <div class="yell-box-right"></div>
+        </div>
+        <% if (i+1) % 3 == 0 %>
+          <div class="quizzes-dropdown" style="float:left;width:100%;padding:0;margin:0px;"></div>
+        <% end %>
+      <%- end -%>
+    </div>
+    <div id="quizzes" style="display: none;">
+      <%- @categories.each do |category| %>
+        <div id="category-<%= category.id -%>">
+        <div class="quizzes-in-category" >
+          <div class="quizzes-category">
+            <div class="green-strip"></div>
+            <div class="green-bullet"></div>
+            <div class="category-header"><%= category.name -%></div>
+            <div class="green-bullet"></div>
+            <div class="green-strip"></div>
+          </div>
+          <div class="clear"></div>
+          <div class="quizzes-container">
+            <% @quizzes = category.quizzes
+              n = @quizzes.size
+              n_per_section = (n / 3).floor
+              start = 0
+            %>
+            <% if n > 0 %>
+              <% (0..2).each do |j| %>
+                
+              <% k = (j * n_per_section) %>
+                
+                <ul class="quizzes-list">
+                  <% if j == 2 %>
+                    <% (k..(n - 1)).each do |i| %>
+                      <li><span><%= link_to @quizzes[i].name, @quizzes[i], :class => "quiz-link" -%></span></li>
+                    <% end %>
+                  <% else %>
+                    <% (k..(k + n_per_section - 1)).each do |i| %>
+                      <li><span><%= link_to @quizzes[i].name, @quizzes[i], :class => "quiz-link" -%></span></li>
+                    <% end %>
+                  <% end %>
+                </ul>
+              <% end %>
+            <% else %>
+              <div class="no-quizzes"> 
+                Coming soon, more Quizzes for <%= category.name -%> </br></br>
+                Wait for some Excitement...
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>  
+      <% end %>
+    </div>
+    <div class="clear"></div>
+  <!-- place content here -->
+  </div>
+</div>
+<%= render "main/js_index" %>

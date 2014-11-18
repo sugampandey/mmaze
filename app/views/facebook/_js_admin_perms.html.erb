@@ -1,0 +1,17 @@
+<% if facebook_logged_in? and current_user.admin?  %>
+<% content_for :javascript do %>
+<script type="text/javascript">
+$(function(){
+  setTimeout(function(){
+    FB.api('/me/permissions',function(response){ 
+      if((response) && ((response.data[0].manage_pages == undefined) || (response.data[0].publish_stream == undefined))){
+        FB.login(function(response){ 
+          window.location.reload() 
+        },{scope: 'publish_stream, manage_pages'})
+      } 
+    })
+  }, 3000);
+})
+</script>
+<% end %>
+<% end %>

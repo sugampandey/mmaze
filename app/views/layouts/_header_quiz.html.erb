@@ -1,0 +1,33 @@
+<div class="header">
+  <div class="header-nav-strip">
+    <%= render "layouts/header_menu" %>
+  </div>
+  <div class="header-content placeholder">
+    <!-- place header content here -->
+    <div class="musique-maze-loggo-container">
+      <div class="musique-maze-loggo-150-75"></div>
+      <div class="green-box">
+        <div class="green-box-tl">
+          <div class="green-box-tr">
+            <div class="green-box-ct">
+              <div class="green-box-l">
+                <div class="green-box-r">
+                  <div class="green-box-c">
+                    <div style="font-size:26px;font-weight:bold;text-align:center;"><%= breaking_quiz_name(@quiz.name) %></div>
+                    <div style="font-size:14px;margin-top:5px;text-align:center;"><%=h @quiz.content -%></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="green-box-bl">
+          <div class="green-box-br">
+            <div class="green-box-cb"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
