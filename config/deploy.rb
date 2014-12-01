@@ -5,7 +5,6 @@ default_run_options[:pty] = true
 
 set :bundle_flags,    ""
 set :application, "musiquemaze.com"
-set :repository,  "https://cricketfantasies.com:81/svn/musiquemaze/"
 
 set :deploy_to, "/var/www/#{application}"
 set :rails_env, "production"
@@ -13,9 +12,12 @@ set :rails_env, "production"
 set :user, "prod"
 set :use_sudo, true
 
-set :scm, :subversion
-set :scm_username, "tedy"
-set :scm_password, "tedy123" #proc{Capistrano::CLI.password_prompt('SVN pass:')}
+set :repository,  "git@github.com:sugampandey/mmaze.git"
+set :scm, :git
+
+set :use_sudo, false
+set :ssh_options, { :forward_agent => true }
+set :deploy_via, :remote_cache
 
 role :web, "198.101.193.206"
 role :app, "198.101.193.206"
@@ -29,14 +31,12 @@ namespace :deploy do
   
   desc "copying database configuration"
   task :copy_database_yml, :roles => :app do
-    run "cd #{release_path} && cp config/database.yml.copyme config/database.yml"
+    run "ln -s #{shared_path}/database.yml #{release_path}/config/database.yml"
   end
   
   desc "copying environments configuration"
   task :copy_environments_config, :roles => :app do
-    run "cd #{release_path} && cp config/environment.rb.copyme config/environment.rb"
-    run "cd #{release_path} && cp config/environments/production.rb.copyme config/environments/production.rb"
-    run "cd #{release_path} && cp config/environments/development.rb.copyme config/environments/development.rb"
+    run "ln -s #{shared_path}/app_config.yml #{release_path}/config/app_config.yml"
   end
   
   task :refresh_sitemaps do
