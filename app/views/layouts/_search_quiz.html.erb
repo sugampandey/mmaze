@@ -1,6 +1,6 @@
 <div id="searchContainer">
 <%= form_tag search_quizzes_path, :method => :get do %>
-  <%= text_field_tag "q", params[:q], :autocomplete => "off", :placeholder => "Search for Quizzess" -%>
+  <%= text_field_tag "q", params[:q], :autocomplete => "off", :placeholder => "Search for Quizzes" -%>
   <%= image_tag("/images/search.png", :id => "submitImgBtn", :title=>"Search", :style => "padding:0", :width => "32px", :height => "29px")  %>
 <% end %>
 </div>
