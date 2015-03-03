@@ -8,12 +8,15 @@
   padding: 0px;
   width: 100%;
 }
+body {
+  background: url(/images/beach-sunset-011015.jpg) repeat-x top left;
+}
 .placeholder {
   width: 900px;
   margin: 0 auto;
 }
 .header {
-  background: url(/images/green-brick.png) top left;
+  /* background: url(/images/green-brick.png) top left; */
   width: 100%;
   margin: 0 auto;
 }
@@ -25,32 +28,43 @@
 }
 .content {
   background: url(/images/white-brick.png) top left;
+  background-color: #cecece;
+  opacity: 0.85;
+  filter: alpha(opacity=85); /* For IE8 and earlier */
   width: 100%;
   margin: 0 auto;
+  border-top: 1px solid #000;
+  min-height: 255px;
+  border-color: rgba(111,111,111,0.5);
 }
 .content-placeholder {
   width: 900px;
   margin: 0 auto;
 }
 .content-mid-split {
-  background: url(/images/mid-splitter-bg.png) repeat-x top left;
+  /*background: url(/images/mid-splitter-bg.png) repeat-x top left;*/
   width: 100%;
   height: 43px;
 }
 .content-mid-split-7 {
-  background: url(/images/mid-splitter-bg-7.png) repeat-x top left;
+  /*background: url(/images/mid-splitter-bg-7.png) repeat-x top left;*/
   width: 100%;
   height: 7px;
 }
 .foot-splitter {
-  background: url(/images/foot-splitter-bg.png) repeat-x top left;
+  /*background: url(/images/foot-splitter-bg.png) repeat-x top left;*/
   width: 100%; height: 23px;
 }
 .footer {
   background: url(/images/green-brick.png) top left;
+  border-top: 1px solid #000;
+  border-color: rgba(111,111,111,0.2);
+  opacity: 0.85;
+  filter: alpha(opacity=85); /* For IE8 and earlier */
   width: 100%;
   margin: 0 auto;
   clear: both;
+  min-height: 255px;
 }
 .foot-end-splitter {
   background: url(/images/foot-end-splitter.png) repeat-x top left;
@@ -71,17 +85,17 @@
   margin: 0 auto;
 }
 .content-header-left {
-  background: url(/images/mid-heading-left.png) no-repeat top left;
+  /* background: url(/images/mid-heading-left.png) no-repeat top left; */
   float: left;
   width: 18px; height: 43px;
 }
 .content-header-center {
-  background: url(/images/mid-heading-center.png) repeat-x top left;
+  /* background: url(/images/mid-heading-center.png) repeat-x top left; */ 
   float: left;
   width: 220px; height: 43px;
 }
 .content-header-right {
-  background: url(/images/mid-heading-right.png) no-repeat top left;
+  /* background: url(/images/mid-heading-right.png) no-repeat top left; */
   float: left;
   width: 18px; height: 43px;
 }
@@ -261,8 +275,12 @@ clear: both; display: inline;
 }
 .musique-maze-loggo {
   float: left;
-  background: url(/images/musiquemaze-logo-225-114.png) no-repeat top left;
-  width: 225px; height: 114px; float: left; margin-right: 20px;
+  background: url(/images/logo.png) no-repeat top right;
+  background-size: 135px 135px;
+  width: 225px;
+  height: 135px;
+  float: left; 
+  margin-right: 20px;
 }
 .musique-maze-loggo-150-75 {
   float: left;
